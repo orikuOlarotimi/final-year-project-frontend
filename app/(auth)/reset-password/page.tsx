@@ -178,7 +178,6 @@ export default function ResetPasswordPage() {
       toast.error("OTP must contain only numbers");
       return;
     }
-
     // Password validation
     if (!trimmedPassword) {
       toast.error("New password is required");
@@ -222,7 +221,7 @@ export default function ResetPasswordPage() {
           },
           body: JSON.stringify({
             email,
-            otp_input: otpValue,
+            otp: otpValue,
             new_password: trimmedPassword,
           }),
         },

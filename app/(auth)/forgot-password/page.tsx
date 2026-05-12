@@ -7,66 +7,66 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
-    const router = useRouter();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-     const trimmedEmail = email.trim().toLowerCase();
+    e.preventDefault();
+    const trimmedEmail = email.trim().toLowerCase();
 
-     // Email validation
-     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-     // Empty email check
-     if (!trimmedEmail) {
-       toast.error("Email is required");
-       return;
-     }
+    // Empty email check
+    if (!trimmedEmail) {
+      toast.error("Email is required");
+      return;
+    }
 
-     // Invalid email syntax check
-     if (!emailRegex.test(trimmedEmail)) {
-       toast.error("Please enter a valid email address");
-       return;
-     }
+    // Invalid email syntax check
+    if (!emailRegex.test(trimmedEmail)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
 
-     try {
-       setLoading(true);
+    try {
+      setLoading(true);
 
-       const response = await fetch(
-         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
-         {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify({
-             email: trimmedEmail,
-           }),
-         },
-       );
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: trimmedEmail,
+          }),
+        },
+      );
 
-       const data = await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data?.detail?.message || "Failed to send reset email");
+        return;
+      }
 
-       if (!response.ok) {
-         toast.error(data?.detail?.message || "Failed to send reset email");
-         return;
-       }
+      toast.success("Password reset OTP sent successfully");
 
-       toast.success("Password reset OTP sent successfully");
+      // Clear form
+      setEmail("");
+      router.push(`/reset-password?email=${trimmedEmail}`);
+      // Show success state
+      setSent(true);
+    } catch (error) {
+      console.error(error);
 
-       // Clear form
-       setEmail("");
-       router.push(`/reset-password?email=${trimmedEmail}`);
-       // Show success state
-       setSent(true);
-     } catch (error) {
-       console.error(error);
-
-       toast.error("Unable to connect to the server");
-     } finally {
-       setLoading(false);
-     }
+      toast.error("Unable to connect to the server");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

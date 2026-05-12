@@ -15,7 +15,7 @@ export default function EnterOTP() {
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [timer, setTimer] = useState(60);
-
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   
 
   useEffect(() => {
@@ -118,7 +118,6 @@ export default function EnterOTP() {
       const data = await response.json();
 
       if (!response.ok) {
-        console.log(data)
         toast.error(data?.detail?.message || "OTP verification failed");
         return;
       }
