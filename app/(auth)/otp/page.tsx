@@ -137,7 +137,7 @@ export default function EnterOTP() {
       setOtp(["", "", "", "", "", ""]);
 
       // Redirect to dashboard
-      //  router.push("/dashboard");
+       router.push("/dashboard");
     } catch (error) {
       console.error(error);
 

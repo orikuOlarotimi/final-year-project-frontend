@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, Sparkles, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
@@ -8,6 +9,7 @@ import { useAuth } from "../../../src/context/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +80,7 @@ export default function Login() {
       setPassword("");
       console.log(data);
 
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
 
