@@ -14,9 +14,18 @@ export const apiFetch = async (
 
   const headers = new Headers(options.headers || {});
 
-  headers.set("Content-Type", "application/json");
-
+  // headers.set("Content-Type", "application/json");
+  if (!(options.body instanceof FormData)) {
+    headers.set("Content-Type", "application/json");
+  } else {
+    // ensure browser handles multipart boundaries
+    headers.delete("Content-Type");
+  }
   // Attach access token automatically
+    // if (!(options.body instanceof FormData)) {
+    //   headers.set("Content-Type", "application/json");
+    // }
+
   if (options.auth !== false && accessToken) {
     headers.set("Authorization", `Bearer ${accessToken}`);
   }
@@ -50,7 +59,7 @@ export const apiFetch = async (
         localStorage.removeItem("refresh_token");
 
         localStorage.removeItem("status");
-
+        console.log(refreshResponse)
         window.location.href = "/login";
 
         throw new Error("Session expired");
