@@ -21,10 +21,6 @@ export const apiFetch = async (
     // ensure browser handles multipart boundaries
     headers.delete("Content-Type");
   }
-  // Attach access token automatically
-    // if (!(options.body instanceof FormData)) {
-    //   headers.set("Content-Type", "application/json");
-    // }
 
   if (options.auth !== false && accessToken) {
     headers.set("Authorization", `Bearer ${accessToken}`);
@@ -40,6 +36,7 @@ export const apiFetch = async (
   if (response.status === 401 && refreshToken) {
     try {
       // REQUEST NEW ACCESS TOKEN
+      console.log("reached here")
       const refreshResponse = await fetch(`${BASE_URL}/api/auth/refresh`, {
         method: "POST",
         headers: {
@@ -51,7 +48,7 @@ export const apiFetch = async (
       });
 
       const refreshData = await refreshResponse.json();
-
+      console.log(refreshData);
       // REFRESH FAILED
       if (!refreshResponse.ok) {
         localStorage.removeItem("access_token");
@@ -69,6 +66,9 @@ export const apiFetch = async (
       const newAccessToken = refreshData.access_token;
 
       localStorage.setItem("access_token", newAccessToken);
+      if (refreshData.refresh_token) {
+        localStorage.setItem("refresh_token", refreshData.refresh_token);
+      }
 
       // UPDATE AUTH HEADER
       headers.set("Authorization", `Bearer ${newAccessToken}`);
