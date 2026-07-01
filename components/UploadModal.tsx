@@ -36,7 +36,7 @@ export default function UploadModal({
           Upload Documents
         </h2>
         <p className="text-sm mb-6 text-[#8b7fc4]">
-          Add up to 5 documents (max 5MB each)
+          Add your document 
         </p>
 
         {/* Hidden File Input */}
@@ -66,7 +66,7 @@ export default function UploadModal({
             Drop files or click to browse
           </p>
           <p className="text-xs text-[#8b7fc4]">
-            Supports PDF, DOCX, TXT · Max 5MB
+            Supports PDF, DOCX, TXT · Max 12MB
           </p>
         </div>
 

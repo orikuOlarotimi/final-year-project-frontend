@@ -14,7 +14,6 @@ export const apiFetch = async (
 
   const headers = new Headers(options.headers || {});
 
-  // headers.set("Content-Type", "application/json");
   if (!(options.body instanceof FormData)) {
     headers.set("Content-Type", "application/json");
   } else {

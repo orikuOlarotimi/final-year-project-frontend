@@ -107,7 +107,7 @@ export default function SignupPage() {
      } finally {
        setLoading(false);
      }
-    // Handle signup logic here
+   
   };
 
   return (

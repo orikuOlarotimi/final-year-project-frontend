@@ -78,7 +78,6 @@ export default function Login() {
       toast.success("Login successful");
       setEmail("");
       setPassword("");
-      console.log(data);
 
       router.push("/dashboard");
     } catch (error) {

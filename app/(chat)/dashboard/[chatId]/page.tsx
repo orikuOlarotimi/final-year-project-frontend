@@ -129,8 +129,8 @@ export default function ChatPage() {
         toast.error(`${file.name} is not supported`);
         return;
       }
-      if (file.size / (1024 * 1024) > 5) {
-        toast.error(`${file.name} exceeds 5MB limit`);
+      if (file.size / (1024 * 1024) > 12) {
+        toast.error(`${file.name} exceeds 12MB limit`);
         return;
       }
     }
