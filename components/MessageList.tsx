@@ -48,7 +48,9 @@ export default function MessageList({ messages, loading }: MessageListProps) {
       {messages.map((msg) => (
         <div
           key={msg.message_id}
-          className={msg.role === "user" ? "flex justify-end" : "flex justify-start"}
+          className={
+            msg.role === "user" ? "flex justify-end" : "flex justify-start"
+          }
         >
           {msg.role === "user" ? (
             <div className="max-w-[75%]">
@@ -65,7 +67,7 @@ export default function MessageList({ messages, loading }: MessageListProps) {
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <div>
-                <div className="rounded-2xl px-4 py-3 text-sm leading-relaxed bg-[rgba(30,27,75,0.5)] border border-violet-500/20 text-[#eeeaff]">
+                <div className="rounded-2xl px-4 py-3 text-sm leading-relaxed bg-[rgba(30,27,75,0.5)] border border-violet-500/20 text-[#eeeaff] whitespace-pre-wrap">
                   {msg.loading ? (
                     <div className="flex items-center gap-1 py-1">
                       <div className="w-2 h-2 rounded-full bg-violet-300 animate-bounce" />
